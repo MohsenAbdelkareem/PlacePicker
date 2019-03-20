@@ -7,7 +7,7 @@ allprojects {
 	}
   
   	dependencies {
-	        implementation 'com.github.MohsenAbdelkareem:PlacePicker:1.1.1'
+	        implementation 'com.github.MohsenAbdelkareem:PlacePicker:1.1.2'
 	}
 	
 	
