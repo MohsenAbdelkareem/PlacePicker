@@ -19,7 +19,7 @@
             android:id="@+id/collapsingToolbarLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:contentScrim="?attr/colorPrimary"
+            app:contentScrim="?attr/colorButtonNormal"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
             app:titleEnabled="false">
 
@@ -63,7 +63,7 @@
                     android:layout_marginBottom="@dimen/default_margin"
                     android:background="@drawable/bg_button_round"
                     android:elevation="@dimen/material_elevation_fab"
-                    android:tint="?attr/colorPrimary"
+                    android:tint="?attr/colorButtonNormal"
                     app:layout_constraintBottom_toBottomOf="@id/frameMap"
                     app:layout_constraintEnd_toEndOf="@id/frameMap"
                     app:srcCompat="@drawable/ic_crosshairs_gps_black_24dp"
