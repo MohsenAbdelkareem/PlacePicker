@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/coordinator"
-    android:theme="@style/PlaceTheme"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
@@ -160,7 +159,6 @@
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:visibility="gone"
         android:layout_height="match_parent"
         android:background="@color/colorBackground"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
