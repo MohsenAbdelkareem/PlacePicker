@@ -18,6 +18,7 @@ in style
         <item name="colorPrimary">@color/legacy_light_primary</item>
         <item name="colorPrimaryDark">@color/legacy_light_primary_dark</item>
         <item name="colorAccent">@color/app_text_color</item>
+	<item name="colorButtonNormal">@color/colorPrimary</item>
         <item name="android:textColorPrimary">@color/textColorPrimary</item>
         <item name="android:textColorSecondary">@color/textColorSecondary</item>
 
@@ -28,6 +29,7 @@ in style (v21):
         <item name="colorPrimary">@color/legacy_light_primary</item>
         <item name="colorPrimaryDark">@color/legacy_light_primary_dark</item>
         <item name="colorAccent">@color/app_text_color</item>
+	<item name="colorButtonNormal">@color/colorPrimary</item>
         <item name="android:textColorPrimary">@color/textColorPrimary</item>
         <item name="android:textColorSecondary">@color/textColorSecondary</item>
         <item name="buttonBarNegativeButtonStyle">
