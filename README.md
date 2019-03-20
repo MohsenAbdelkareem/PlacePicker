@@ -6,5 +6,5 @@
 	}
   
   	dependencies {
-	        implementation 'com.github.MohsenAbdelkareem:PlacePicker:Tag'
+	        implementation 'com.github.MohsenAbdelkareem:PlacePicker:1.0.0'
 	}
