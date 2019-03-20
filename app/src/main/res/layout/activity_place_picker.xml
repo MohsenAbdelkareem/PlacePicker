@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/coordinator"
+    android:theme="@style/PlaceTheme"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
@@ -63,7 +64,7 @@
                     android:layout_marginBottom="@dimen/default_margin"
                     android:background="@drawable/bg_button_round"
                     android:elevation="@dimen/material_elevation_fab"
-                    android:tint="@color/colorPrimary"
+                    android:tint="?attr/colorPrimary"
                     app:layout_constraintBottom_toBottomOf="@id/frameMap"
                     app:layout_constraintEnd_toEndOf="@id/frameMap"
                     app:srcCompat="@drawable/ic_crosshairs_gps_black_24dp"
@@ -78,7 +79,7 @@
                     android:layout_marginStart="@dimen/guide_start_margin"
                     android:layout_marginBottom="@dimen/selector_margin"
                     android:contentDescription="@string/picker_select_this"
-                    android:tint="@color/colorAccent"
+                    android:tint="?attr/colorAccent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:srcCompat="@drawable/ic_map_marker_black_24dp"
@@ -91,7 +92,7 @@
                     android:layout_marginStart="@dimen/guide_content_margin"
                     android:text="@string/picker_select_this"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                    android:textColor="@color/colorAccent"
+                    android:textColor="?attr/colorAccent"
                     app:layout_constraintBottom_toTopOf="@id/ivMarkerSelect"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/ivMarkerSelect"
@@ -159,6 +160,7 @@
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
+        android:visibility="gone"
         android:layout_height="match_parent"
         android:background="@color/colorBackground"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
