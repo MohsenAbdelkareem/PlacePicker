@@ -100,11 +100,10 @@ class PlacePickerActivity : AppCompatActivity(), OnMapReadyCallback,
 
         LocationUtils.displayLocationSettingsRequest(this, object : LocationUtils.LocationListener {
             override fun onLocationChange(location: Location?) {
-
+                initMap()
             }
 
             override fun onLocationError() {
-
             }
 
         })
