@@ -98,16 +98,6 @@ class PlacePickerActivity : AppCompatActivity(), OnMapReadyCallback,
         viewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get<PlacePickerViewModel>(PlacePickerViewModel::class.java)
 
-        LocationUtils.displayLocationSettingsRequest(this, object : LocationUtils.LocationListener {
-            override fun onLocationChange(location: Location?) {
-                initMap()
-            }
-
-            override fun onLocationError() {
-            }
-
-        })
-
         // Retrieve location and camera position from saved instance state.
         lastKnownLocation = savedInstanceState
                 ?.getParcelable(STATE_LOCATION) ?: lastKnownLocation
@@ -129,6 +119,16 @@ class PlacePickerActivity : AppCompatActivity(), OnMapReadyCallback,
         // Initializes the map
         val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
+
+        LocationUtils.displayLocationSettingsRequest(this, object : LocationUtils.LocationListener {
+            override fun onLocationChange(location: Location?) {
+                initMap()
+            }
+
+            override fun onLocationError() {
+            }
+
+        })
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
