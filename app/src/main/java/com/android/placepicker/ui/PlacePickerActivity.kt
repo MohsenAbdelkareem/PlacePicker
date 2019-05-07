@@ -98,6 +98,17 @@ class PlacePickerActivity : AppCompatActivity(), OnMapReadyCallback,
         viewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get<PlacePickerViewModel>(PlacePickerViewModel::class.java)
 
+        LocationUtils.displayLocationSettingsRequest(this, object : LocationUtils.LocationListener {
+            override fun onLocationChange(location: Location?) {
+
+            }
+
+            override fun onLocationError() {
+
+            }
+
+        })
+
         // Retrieve location and camera position from saved instance state.
         lastKnownLocation = savedInstanceState
                 ?.getParcelable(STATE_LOCATION) ?: lastKnownLocation
@@ -124,7 +135,7 @@ class PlacePickerActivity : AppCompatActivity(), OnMapReadyCallback,
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if ((requestCode == AUTOCOMPLETE_REQUEST_CODE) && (resultCode == AppCompatActivity.RESULT_OK)) {
+        if ((requestCode == AUTOCOMPLETE_REQUEST_CODE) && (resultCode == RESULT_OK)) {
             data?.run {
                 val place = Autocomplete.getPlaceFromIntent(this)
                 showConfirmPlacePopup(place)
@@ -178,7 +189,7 @@ class PlacePickerActivity : AppCompatActivity(), OnMapReadyCallback,
     override fun onPlaceConfirmed(place: Place) {
         val data = Intent()
         data.putExtra(PlacePlacePicker.EXTRA_PLACE, place)
-        setResult(AppCompatActivity.RESULT_OK, data)
+        setResult(RESULT_OK, data)
         finish()
     }
 
