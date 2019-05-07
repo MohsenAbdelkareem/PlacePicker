@@ -47,6 +47,9 @@ public final class LocationUtils {
                     // Update UI with location data
                     // ...
                     locationListener.onLocationChange(location);
+                    if (location != null){
+                        return;
+                    }
                 }
             }
         };
