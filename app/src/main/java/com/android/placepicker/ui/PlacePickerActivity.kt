@@ -126,7 +126,12 @@ class PlacePickerActivity : AppCompatActivity(), OnMapReadyCallback,
             data?.run {
                 val place = Autocomplete.getPlaceFromIntent(this)
 //                showConfirmPlacePopup(place)
-                place.latLng?.let { doUpdateLocation(it) }
+                place.latLng?.let {
+                    val update = CameraUpdateFactory
+                        .newLatLngZoom(it, defaultZoom)
+                    googleMap?.animateCamera(update)
+                    doUpdateLocation(it)
+                }
             }
         }
     }
