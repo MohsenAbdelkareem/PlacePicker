@@ -42,7 +42,6 @@ import com.android.placepicker.viewmodel.Resource
 import com.android.placepicker.viewmodel.inject.PlaceViewModelFactory
 import kotlinx.android.synthetic.main.activity_place_picker.*
 import org.jetbrains.anko.toast
-import java.lang.Exception
 import javax.inject.Inject
 
 
@@ -99,20 +98,15 @@ class PlacePickerActivity : AppCompatActivity(), OnMapReadyCallback,
         viewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get<PlacePickerViewModel>(PlacePickerViewModel::class.java)
 
-        try {
-            LocationUtils.displayLocationSettingsRequest(this, object : LocationUtils.LocationListener {
-                override fun onLocationChange(location: Location?) {
-                    initMap()
-                }
+        LocationUtils.displayLocationSettingsRequest(this, object : LocationUtils.LocationListener {
+            override fun onLocationChange(location: Location?) {
+                initMap()
+            }
 
-                override fun onLocationError() {
-                }
+            override fun onLocationError() {
+            }
 
-            })
-        }catch (e: Exception){
-            e.printStackTrace()
-        }
-
+        })
 
         // Retrieve location and camera position from saved instance state.
         lastKnownLocation = savedInstanceState
