@@ -10,7 +10,6 @@
     <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/material_white"
             android:fitsSystemWindows="true"
             app:layout_collapseMode="parallax"
             app:layout_collapseParallaxMultiplier="0.4">
@@ -19,8 +18,7 @@
                 android:id="@+id/frameMap"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginBottom="@dimen/selector_margin"
-                app:layout_constraintBottom_toTopOf="@id/ivMarkerSelect"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
@@ -48,84 +46,98 @@
                 android:background="@drawable/bg_button_round"
                 android:elevation="@dimen/material_elevation_fab"
                 android:tint="?attr/colorButtonNormal"
-                app:layout_constraintBottom_toBottomOf="@id/frameMap"
+                app:layout_constraintBottom_toTopOf="@+id/dataLayout"
                 app:layout_constraintEnd_toEndOf="@id/frameMap"
                 app:srcCompat="@drawable/ic_crosshairs_gps_black_24dp"
                 tools:ignore="ContentDescription"
                 tools:targetApi="lollipop"
                 android:layout_marginRight="@dimen/default_margin" />
 
-        <ImageView
-                android:id="@+id/ivMarkerSelect"
-                android:layout_width="@dimen/icon_size_small"
-                android:layout_height="@dimen/icon_size_small"
-                android:layout_marginStart="@dimen/guide_start_margin"
-                android:layout_marginBottom="@dimen/selector_margin"
-                android:contentDescription="@string/picker_select_this"
-                android:tint="?attr/colorAccent"
-                app:layout_constraintBottom_toTopOf="@+id/tvPlaceName"
-                app:layout_constraintStart_toStartOf="parent"
-                app:srcCompat="@drawable/ic_map_marker_black_24dp"
-                android:layout_marginLeft="@dimen/guide_start_margin" />
-
-        <TextView
-                android:id="@+id/tvLocationSelect"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/guide_content_margin"
-                android:text="@string/picker_select_this"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                android:textColor="?attr/colorAccent"
-                app:layout_constraintBottom_toTopOf="@id/ivMarkerSelect"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ivMarkerSelect"
-                android:layout_marginLeft="@dimen/guide_content_margin" />
-
-        <android.support.v4.widget.ContentLoadingProgressBar
-                android:id="@+id/pbLoading"
-                style="@style/Widget.AppCompat.ProgressBar"
-                android:layout_width="@dimen/icon_size_small"
-                android:layout_height="@dimen/icon_size_small"
-                android:indeterminate="true"
-                android:visibility="visible"
-                app:layout_constraintBottom_toTopOf="@id/ivMarkerSelect"
-                app:layout_constraintEnd_toStartOf="@id/btnMyLocation"
-                app:layout_constraintStart_toEndOf="@id/btnMyLocation"
-                app:layout_constraintTop_toBottomOf="@id/ivMarkerSelect" />
-
-        <TextView
-                android:id="@+id/tvPlaceName"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/default_margin"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:layout_marginEnd="16dp"
-                android:layout_marginStart="16dp"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-                android:textColor="@color/textColorPrimary"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toTopOf="@+id/tvPlaceAddress"
-                tools:text="Eiffel Tower" />
-
-        <TextView
-                android:id="@+id/tvPlaceAddress"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginBottom="@dimen/default_margin"
-                android:ellipsize="end"
-                android:maxLines="2"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-                android:textColor="@color/textColorSecondary"
+        <android.support.constraint.ConstraintLayout
+                android:id="@+id/dataLayout"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                tools:text="Champ de Mars, Avenue Anatole France, Paris, France" />
+                android:background="@color/material_white"
+                android:paddingTop="20dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
 
+            <ImageView
+                    android:id="@+id/ivMarkerSelect"
+                    android:layout_width="@dimen/icon_size_small"
+                    android:layout_height="@dimen/icon_size_small"
+                    android:layout_marginStart="@dimen/guide_start_margin"
+                    android:layout_marginBottom="@dimen/selector_margin"
+                    android:contentDescription="@string/picker_select_this"
+                    android:tint="?attr/colorAccent"
+                    app:layout_constraintBottom_toTopOf="@+id/tvPlaceName"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:srcCompat="@drawable/ic_map_marker_black_24dp"
+                    android:layout_marginLeft="@dimen/guide_start_margin" />
+
+            <TextView
+                    android:id="@+id/tvLocationSelect"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/guide_content_margin"
+                    android:text="@string/picker_select_this"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    android:textColor="?attr/colorAccent"
+                    app:layout_constraintBottom_toTopOf="@id/ivMarkerSelect"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ivMarkerSelect"
+                    android:layout_marginLeft="@dimen/guide_content_margin" />
+
+            <android.support.v4.widget.ContentLoadingProgressBar
+                    android:id="@+id/pbLoading"
+                    style="@style/Widget.AppCompat.ProgressBar"
+                    android:layout_width="@dimen/icon_size_small"
+                    android:layout_height="@dimen/icon_size_small"
+                    android:indeterminate="true"
+                    android:visibility="visible"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginStart="16dp"
+                    app:layout_constraintBottom_toTopOf="@id/ivMarkerSelect"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ivMarkerSelect" />
+
+            <TextView
+                    android:id="@+id/tvPlaceName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/default_margin"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginStart="16dp"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                    android:textColor="@color/textColorPrimary"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/tvPlaceAddress"
+                    tools:text="Eiffel Tower" />
+
+            <TextView
+                    android:id="@+id/tvPlaceAddress"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="@dimen/default_margin"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                    android:textColor="@color/textColorSecondary"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    tools:text="Champ de Mars, Avenue Anatole France, Paris, France" />
+
+
+
+        </android.support.constraint.ConstraintLayout>
 
     </android.support.constraint.ConstraintLayout>
 

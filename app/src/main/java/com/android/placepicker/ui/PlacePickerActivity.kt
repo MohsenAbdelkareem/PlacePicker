@@ -172,6 +172,7 @@ class PlacePickerActivity : AppCompatActivity(), OnMapReadyCallback,
 
         googleMap?.setOnCameraMoveStartedListener {
 
+            dataLayout.visibility = View.GONE
             pbLoading.show()
             tvPlaceName.visibility = View.GONE
             tvPlaceAddress.visibility = View.GONE
@@ -196,6 +197,7 @@ class PlacePickerActivity : AppCompatActivity(), OnMapReadyCallback,
                 pbLoading.show()
             }
             Resource.Status.SUCCESS -> {
+                dataLayout.visibility = View.VISIBLE
                 result.data?.run {
 
                     tvPlaceName.visibility = View.VISIBLE
