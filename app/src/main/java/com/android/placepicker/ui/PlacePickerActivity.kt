@@ -9,8 +9,6 @@ import android.graphics.Canvas
 import android.location.Location
 import android.os.Bundle
 import android.os.Handler
-import android.support.design.widget.AppBarLayout
-import android.support.design.widget.CoordinatorLayout
 import android.support.v4.content.res.ResourcesCompat
 import android.support.v4.graphics.drawable.DrawableCompat
 import android.util.Log
@@ -18,7 +16,6 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
 import com.android.placepicker.R
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -35,13 +32,11 @@ import com.karumi.dexter.listener.PermissionGrantedResponse
 import com.karumi.dexter.listener.single.BasePermissionListener
 import com.android.placepicker.PlacePlacePicker
 import com.android.placepicker.helper.PermissionsHelper
-import com.android.placepicker.helper.ScreenUtils
 import com.android.placepicker.inject.DaggerInjector
 import com.android.placepicker.viewmodel.PlacePickerViewModel
 import com.android.placepicker.viewmodel.Resource
 import com.android.placepicker.viewmodel.inject.PlaceViewModelFactory
 import kotlinx.android.synthetic.main.activity_place_picker.*
-import kotlinx.android.synthetic.main.fragment_dialog_place_confirm.view.*
 import org.jetbrains.anko.toast
 import javax.inject.Inject
 
@@ -130,7 +125,8 @@ class PlacePickerActivity : AppCompatActivity(), OnMapReadyCallback,
         if ((requestCode == AUTOCOMPLETE_REQUEST_CODE) && (resultCode == RESULT_OK)) {
             data?.run {
                 val place = Autocomplete.getPlaceFromIntent(this)
-                showConfirmPlacePopup(place)
+//                showConfirmPlacePopup(place)
+                place.latLng?.let { doUpdateLocation(it) }
             }
         }
     }
@@ -177,11 +173,15 @@ class PlacePickerActivity : AppCompatActivity(), OnMapReadyCallback,
         }
 
         googleMap?.setOnCameraIdleListener {
-            val location = LatLng(googleMap!!.cameraPosition.target.latitude, googleMap!!.cameraPosition.target.longitude)
+            val latLng = LatLng(googleMap!!.cameraPosition.target.latitude, googleMap!!.cameraPosition.target.longitude)
 
-            viewModel.getPlaceByLocation(location).observe(this@PlacePickerActivity,
-                Observer { updatePlaceByLocation(it!!) })
+            doUpdateLocation(latLng)
         }
+    }
+
+    private fun doUpdateLocation(location: LatLng){
+        viewModel.getPlaceByLocation(location).observe(this@PlacePickerActivity,
+            Observer { updatePlaceByLocation(it!!) })
     }
 
     private fun updatePlaceByLocation(result: Resource<Place?>) {
@@ -192,6 +192,7 @@ class PlacePickerActivity : AppCompatActivity(), OnMapReadyCallback,
             }
             Resource.Status.SUCCESS -> {
                 result.data?.run {
+
                     tvPlaceName.visibility = View.VISIBLE
                     tvPlaceAddress.visibility = View.VISIBLE
                     tvPlaceName.text = this.name
@@ -210,7 +211,8 @@ class PlacePickerActivity : AppCompatActivity(), OnMapReadyCallback,
     override fun onMarkerClick(marker: Marker): Boolean {
 
         val place = marker.tag as Place
-        showConfirmPlacePopup(place)
+//        showConfirmPlacePopup(place)
+        onPlaceConfirmed(place)
 
         return false
     }
@@ -227,7 +229,10 @@ class PlacePickerActivity : AppCompatActivity(), OnMapReadyCallback,
         // Bind to the recycler view
 
         if (placeAdapter == null) {
-            placeAdapter = PlacePickerAdapter(places) { showConfirmPlacePopup(it) }
+            placeAdapter = PlacePickerAdapter(places) {
+//                showConfirmPlacePopup(it)
+                onPlaceConfirmed(it)
+            }
         }
         else {
             placeAdapter?.swapData(places)
@@ -354,7 +359,10 @@ class PlacePickerActivity : AppCompatActivity(), OnMapReadyCallback,
                 pbLoading.show()
             }
             Resource.Status.SUCCESS -> {
-                result.data?.run { showConfirmPlacePopup(this) }
+                result.data?.run {
+//                    showConfirmPlacePopup(this)
+                    onPlaceConfirmed(this)
+                }
                 pbLoading.hide()
             }
             Resource.Status.ERROR -> {
