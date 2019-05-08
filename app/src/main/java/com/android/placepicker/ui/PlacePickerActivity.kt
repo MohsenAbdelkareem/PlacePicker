@@ -80,6 +80,8 @@ class PlacePickerActivity : AppCompatActivity(), OnMapReadyCallback,
 
     private lateinit var viewModel: PlacePickerViewModel
 
+    private var isLoaded: Boolean = false
+
     @Inject
     lateinit var viewModelFactory: PlaceViewModelFactory
 
@@ -97,16 +99,6 @@ class PlacePickerActivity : AppCompatActivity(), OnMapReadyCallback,
         // Initialize the ViewModel for this activity
         viewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get<PlacePickerViewModel>(PlacePickerViewModel::class.java)
-
-        LocationUtils.displayLocationSettingsRequest(this, object : LocationUtils.LocationListener {
-            override fun onLocationChange(location: Location?) {
-                initMap()
-            }
-
-            override fun onLocationError() {
-            }
-
-        })
 
         // Retrieve location and camera position from saved instance state.
         lastKnownLocation = savedInstanceState
@@ -230,6 +222,19 @@ class PlacePickerActivity : AppCompatActivity(), OnMapReadyCallback,
                 isLocationPermissionGranted = true
                 initMap()
             }
+        })
+
+        LocationUtils.displayLocationSettingsRequest(this, object : LocationUtils.LocationListener {
+            override fun onLocationChange(location: Location?) {
+                if (! isLoaded) {
+                    initMap()
+                    isLoaded = true
+                }
+            }
+
+            override fun onLocationError() {
+            }
+
         })
     }
 
