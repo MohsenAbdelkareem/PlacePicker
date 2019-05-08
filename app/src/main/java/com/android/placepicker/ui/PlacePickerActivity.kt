@@ -41,6 +41,7 @@ import com.android.placepicker.viewmodel.PlacePickerViewModel
 import com.android.placepicker.viewmodel.Resource
 import com.android.placepicker.viewmodel.inject.PlaceViewModelFactory
 import kotlinx.android.synthetic.main.activity_place_picker.*
+import kotlinx.android.synthetic.main.fragment_dialog_place_confirm.view.*
 import org.jetbrains.anko.toast
 import javax.inject.Inject
 
@@ -167,6 +168,43 @@ class PlacePickerActivity : AppCompatActivity(), OnMapReadyCallback,
         googleMap = map
         map?.setOnMarkerClickListener(this)
         checkForPermission()
+
+        googleMap?.setOnCameraMoveStartedListener {
+
+            pbLoading.show()
+            tvPlaceName.visibility = View.GONE
+            tvPlaceAddress.visibility = View.GONE
+        }
+
+        googleMap?.setOnCameraIdleListener {
+            val location = LatLng(googleMap!!.cameraPosition.target.latitude, googleMap!!.cameraPosition.target.longitude)
+
+            viewModel.getPlaceByLocation(location).observe(this@PlacePickerActivity,
+                Observer { updatePlaceByLocation(it!!) })
+        }
+    }
+
+    private fun updatePlaceByLocation(result: Resource<Place?>) {
+
+        when (result.status) {
+            Resource.Status.LOADING -> {
+                pbLoading.show()
+            }
+            Resource.Status.SUCCESS -> {
+                result.data?.run {
+                    tvPlaceName.visibility = View.VISIBLE
+                    tvPlaceAddress.visibility = View.VISIBLE
+                    tvPlaceName.text = this.name
+                    tvPlaceAddress.text = this.address
+                }
+                pbLoading.hide()
+            }
+            Resource.Status.ERROR -> {
+                toast(R.string.picker_load_this_place_error)
+                pbLoading.hide()
+            }
+        }
+
     }
 
     override fun onMarkerClick(marker: Marker): Boolean {
@@ -195,7 +233,7 @@ class PlacePickerActivity : AppCompatActivity(), OnMapReadyCallback,
             placeAdapter?.swapData(places)
         }
 
-        rvNearbyPlaces.adapter = placeAdapter
+//        rvNearbyPlaces.adapter = placeAdapter
 
         // Bind to the map
 
@@ -347,7 +385,7 @@ class PlacePickerActivity : AppCompatActivity(), OnMapReadyCallback,
     private fun initializeUi() {
 
         // Initialize the recycler view.
-        rvNearbyPlaces.layoutManager = LinearLayoutManager(this)
+//        rvNearbyPlaces.layoutManager = LinearLayoutManager(this)
 
         // Bind the listeners
         btnMyLocation.setOnClickListener { getDeviceLocation(true) }
@@ -361,10 +399,10 @@ class PlacePickerActivity : AppCompatActivity(), OnMapReadyCallback,
                 else View.GONE
 
         // Add a nice fade effect to toolbar
-        appBarLayout.addOnOffsetChangedListener(
-                AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
-                    toolbar.alpha = Math.abs(verticalOffset / appBarLayout.totalScrollRange.toFloat())
-                })
+//        appBarLayout.addOnOffsetChangedListener(
+//                AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
+//                    toolbar.alpha = Math.abs(verticalOffset / appBarLayout.totalScrollRange.toFloat())
+//                })
 
         // Disable vertical scrolling on appBarLayout (it messes with the map...)
 
