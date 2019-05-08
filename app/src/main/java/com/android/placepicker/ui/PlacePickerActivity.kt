@@ -129,7 +129,7 @@ class PlacePickerActivity : AppCompatActivity(), OnMapReadyCallback,
                 place.latLng?.let {
                     val update = CameraUpdateFactory
                         .newLatLngZoom(it, defaultZoom)
-                    googleMap?.animateCamera(update)
+                    googleMap?.moveCamera(update)
                     doUpdateLocation(it)
                 }
             }
