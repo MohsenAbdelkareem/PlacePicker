@@ -269,7 +269,7 @@ class PlacePickerActivity : AppCompatActivity(), OnMapReadyCallback,
                         }
 
                         // Load the places near this location
-                        loadNearbyPlaces()
+//                        loadNearbyPlaces()
                     }
         }
         catch (e: SecurityException) {
@@ -402,7 +402,7 @@ class PlacePickerActivity : AppCompatActivity(), OnMapReadyCallback,
             else {
                 // Use the last know location to point the map to
                 setDefaultLocation()
-                loadNearbyPlaces()
+//                loadNearbyPlaces()
             }
         }
         else {
