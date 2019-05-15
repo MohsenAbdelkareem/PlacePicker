@@ -14,10 +14,10 @@ abstract class ViewModelModule {
     @Binds
     @IntoMap
     @ViewModelKey(PlacePickerViewModel::class)
-    abstract fun bindPlacePickerViewModel(viewViewModel: PlacePickerViewModel): ViewModel
+    abstract fun bindPlacePickerViewModel(placePickerViewModel: PlacePickerViewModel): ViewModel
 
     @Binds
     @IntoMap
     @ViewModelKey(PlaceConfirmDialogViewModel::class)
-    abstract fun bindPlaceConfirmDialogViewModel(viewViewModel: PlaceConfirmDialogViewModel): ViewModel
+    abstract fun bindPlaceConfirmDialogViewModel(placeConfirmDialogViewModel: PlaceConfirmDialogViewModel): ViewModel
 }

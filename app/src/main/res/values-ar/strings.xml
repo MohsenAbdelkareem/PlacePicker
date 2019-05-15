@@ -1,0 +1,19 @@
+<resources>
+
+    <string name="picker_title">اختر موقع</string>
+    <string name="picker_select_this">اختر هذا الموقع</string>
+    <string name="picker_or_select_nearby">او اختر مكان قريب</string>
+    <string name="picker_load_places_error">"لا يمكن تحديد الاماكن القريبة…"</string>
+    <string name="picker_load_this_place_error">"لا يمكن تحديد المكان المختار…"</string>
+    <string name="picker_place_confirm">استخدام هذا المكان؟</string>
+    <string name="picker_place_confirm_cancel">تغيير الموقع</string>
+
+    <!-- Content descriptions -->
+    <string name="description_place_image">A photo of the selected place</string>
+    <string name="description_place_map">A map of the selected place</string>
+
+    <!-- Permissions -->
+    <string name="permission_fine_location_title">Location Permission</string>
+    <string name="permission_fine_location_message">We only need your location to help you find relevant nearby places.</string>
+
+</resources>

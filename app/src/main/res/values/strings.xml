@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">Place Place Picker</string>
 
     <string name="picker_title">Select a location</string>
     <string name="picker_select_this">Select this location</string>
