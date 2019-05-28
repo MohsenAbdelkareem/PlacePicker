@@ -51,6 +51,7 @@ class PlacePickerActivity : AppCompatActivity(), OnMapReadyCallback,
 
         // Keys for storing activity state.
         private const val STATE_CAMERA_POSITION = "state_camera_position"
+        private const val LAT_LNG = "lat_lng"
         private const val STATE_LOCATION = "state_location"
 
         private const val AUTOCOMPLETE_REQUEST_CODE = 1001
@@ -70,6 +71,8 @@ class PlacePickerActivity : AppCompatActivity(), OnMapReadyCallback,
 
     private var lastKnownLocation: LatLng? = null
 
+    private var intentLocation: LatLng? = null
+
     private var placeAdapter: PlacePickerAdapter? = null
 
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
@@ -87,6 +90,10 @@ class PlacePickerActivity : AppCompatActivity(), OnMapReadyCallback,
 
         // Inject dependencies
         DaggerInjector.getInjector(application).inject(this)
+
+        intent?.let {
+            intentLocation = it.getParcelableExtra(LAT_LNG)
+        }
 
         // Configure the toolbar
         setSupportActionBar(toolbar)
@@ -446,19 +453,21 @@ class PlacePickerActivity : AppCompatActivity(), OnMapReadyCallback,
         // Restore any saved state
         restoreMapState()
 
+        if (intentLocation != null){
+            setIntentLocation()
+            return
+        }
         if (isLocationPermissionGranted) {
 
             if (lastKnownLocation == null) {
                 // Get the current location of the device and set the position of the map
                 getDeviceLocation(false)
-            }
-            else {
+            } else {
                 // Use the last know location to point the map to
                 setDefaultLocation()
 //                loadNearbyPlaces()
             }
-        }
-        else {
+        } else {
             setDefaultLocation()
         }
     }
@@ -506,6 +515,10 @@ class PlacePickerActivity : AppCompatActivity(), OnMapReadyCallback,
             viewModel.getPlaceByLocation(this.target).observe(this@PlacePickerActivity,
                     Observer { handlePlaceByLocation(it!!) })
         }
+    }
+
+    private fun setIntentLocation() {
+        googleMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(intentLocation, defaultZoom))
     }
 
     private fun setDefaultLocation() {
